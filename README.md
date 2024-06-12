@@ -1,5 +1,5 @@
 # Simpsons API Backend
-![The Simpsons](https://upload.wikimedia.org/wikipedia/commons/9/98/The_Simpsons_yellow_logo.svg)
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/98/The_Simpsons_yellow_logo.svg" alt="The Simpsons" width="300"/>
 
 This project is a backend API for retrieving and managing data related to characters from the famous TV show "The Simpsons". It provides endpoints to perform CRUD operations on character data.
 
