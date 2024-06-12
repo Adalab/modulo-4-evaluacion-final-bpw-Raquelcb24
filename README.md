@@ -25,17 +25,16 @@ The Simpsons API Backend is built using Node.js and Express.js, with MySQL as th
 ## Installation
 
 To run the Simpsons API Backend locally, follow these steps:
+1. Clone this repository to your local machine:
 
-1. Clone this repository:
-   
    ```bash
-   git clone https://github.com/Adalab/modulo-4-evaluacion-final-bpw-Raquelcb24.git
+  git clone https://github.com/Adalab/modulo-4-evaluacion-final-bpw-Raquelcb24.git
    ```
 
 2. Navigate to the project directory:
-   
+
    ```bash
-  cd modulo-4-evaluacion-final-bpw-Raquelcb24
+   cd modulo-4-evaluacion-final-bpw-Raquelcb24
    ```
 
 3. Install dependencies using npm:
@@ -44,11 +43,12 @@ To run the Simpsons API Backend locally, follow these steps:
    npm install
    ```
 
-6. Start the server:
+4. Start the server:
 
    ```bash
    npm run dev
    ```
+
 
 ## Usage
 
