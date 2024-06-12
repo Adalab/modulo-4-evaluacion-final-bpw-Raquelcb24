@@ -1,0 +1,67 @@
+# Simpsons API Backend
+This project is a backend API for retrieving and managing data related to characters from the famous TV show "The Simpsons". It provides endpoints to perform CRUD operations on character data.
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Endpoints](#endpoints)
+- [Contributing](#contributing)
+
+## Introduction
+
+The Simpsons API Backend is built using Node.js and Express.js, with MySQL as the database management system. It serves as a backend service for applications or websites that require character data from "The Simpsons" TV show. This API allows users to perform various operations such as retrieving character information, adding new characters, updating existing characters, and deleting characters.
+
+## Features
+
+- Retrieve a list of all characters
+- Get details of a specific character by ID
+- Add a new character
+- Update existing character information
+- Delete a character
+
+## Installation
+
+To run the Simpsons API Backend locally, follow these steps:
+
+1. Clone this repository:
+   
+   ```bash
+   git clone https://github.com/Adalab/modulo-4-evaluacion-final-bpw-Raquelcb24.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+  cd modulo-4-evaluacion-final-bpw-Raquelcb24
+   ```
+
+3. Install dependencies using npm:
+
+   ```bash
+   npm install
+   ```
+
+6. Start the server:
+
+   ```bash
+   npm run dev
+   ```
+
+## Usage
+
+Once the server is running, you can make HTTP requests to the available endpoints using tools like Postman. 
+
+## Endpoints
+
+- `GET /characters`: Retrieve a list of all characters.
+- `GET /characters/:id`: Get details of a specific character by ID.
+- `POST /newCharacter`: Add a new character.
+- `PUT /characters/:id`: Update existing character information.
+- `DELETE /characters/:id`: Delete a character.
+
+## Contributing
+
+Contributions to the Simpsons API Backend are welcome! If you find any bugs or have suggestions for improvements, please open an issue or submit a pull request with your changes.
