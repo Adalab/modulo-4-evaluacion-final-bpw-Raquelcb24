@@ -33,7 +33,7 @@ To run the Simpsons API Backend locally, follow these steps:
    ```
 
 2. Navigate to the project directory:
-
+   
    ```bash
   cd modulo-4-evaluacion-final-bpw-Raquelcb24
    ```
