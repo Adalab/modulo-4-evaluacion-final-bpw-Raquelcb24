@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2/promise');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 require('dotenv').config(); //configurar para usar las variables de entorno creadas
 
@@ -63,6 +65,8 @@ server.get("/characters/:id", async (req, res)=>{
 
 });
 
+
+
 //endpoint para añadir un nuevo personaje
 server.post("/newCharacter", async (req, res)=>{
     const conn = await conexion(); //vuelvo a conectar con mi BD
@@ -113,4 +117,128 @@ server.delete("/characters/:id", async (req, res)=>{
         res.status(200).json({success: false, message: "This character does not exist"})
     }
     console.log(results)
+});
+
+//endpoint registro
+server.post('/signup', async (req, res) => {
+    try {
+        const conn = await conexion();
+        const { email, name, address, password } = req.body; 
+
+        const selectEmail = 'SELECT * FROM users WHERE email = ?';
+        const [emailResult] = await conn.query(selectEmail, [email]);
+
+        if (emailResult.length === 0) {
+            const hashedPassword = await bcrypt.hash(password, 10);  //encriptar la contraseña del usuario
+            const insertUser = 'INSERT INTO users (email, name, address, hashed_password) VALUES (?, ?, ?, ?)';
+            const [newUser] = await conn.query(insertUser, [email, name, address, hashedPassword]);
+            res.status(201).json({ success: true, id: newUser.insertId });
+        } else {
+            res.status(409).json({ success: false, message: 'User already exists' });
+        }
+    } catch (error) {
+        res.status(400).json({ success: false, error: error.message });
+    } 
+
+});
+
+//endpoint log in
+server.post('/login', async (req, res) => {
+    try {
+        const conn = await conexion();
+        const { email, password } = req.body;
+       //comprobar en la consola el email y la contraseña que me devuelve el body
+        console.log("Email:", email);
+        console.log("Password:", password);
+
+        const selectUser = 'SELECT * FROM users WHERE email = ?';
+        const [resultUser] = await conn.query(selectUser, [email]);
+          //comprobar en la consola el usuario
+        console.log("Result User:", resultUser);
+
+        if (resultUser.length !== 0) {
+            const hashedPassword = resultUser[0].hashed_password;
+            
+            console.log("Hashed Password:", hashedPassword);
+
+            const isSamePassword = await bcrypt.compare(password, hashedPassword);
+            if (isSamePassword) {
+                const infoToken = { email: resultUser[0].email, id: resultUser[0].id };
+                const token = jwt.sign(infoToken, 'passcode', { expiresIn: '1h' });
+                res.status(201).json({ success: true, token: token });
+            } else {
+                res.status(400).json({ success: false, message: 'incorrect password' });
+            }
+        } else {
+            res.status(400).json({ success: false, message: 'incorrect email' });
+        }
+    } catch (error) {
+        res.status(400).json({ success: false, error: error.message });
+    }
+    
+
+});
+
+
+function authorize(req, res, next) {
+    const tokenString = req.headers.authorization;
+    if (!tokenString) {
+        res.status(400).json({ 
+            success: false, 
+            message: 'Unauthorized' 
+        });
+    } else {
+        try {
+            const token = tokenString.split(' ')[1]; //creo un array con los datos y cojo la posicion 1 que es el token
+            const verifiedToken = jwt.verify(token, 'password');
+            req.userInfo = verifiedToken;
+        } catch (error) {
+            res.status(400).json({ 
+                success: false, 
+                message: error 
+            });
+        }
+        next();
+
+    }
+};
+
+server.get('/userProfile', authorize, async (req, res) => {
+    try {
+        const conn = await conexion();
+        const usersSql = 'SELECT * FROM users';
+        const [results] = await conn.query(usersSql);
+        res.status(200).json({ 
+            succes: true, 
+            data: results 
+        });
+   
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: 'Internal server error' 
+        });
+    } 
+  });
+
+// endpoint cierre sesion
+server.put('/logout', async (req,res) =>{
+    try {
+        const conn = await conexion();
+        const authHeader = req.headers["authorization"];
+        jwt.sign(authHeader, "", { expiresIn: 1 } , (logout, err) => {
+        if (logout) {
+            res.send({msg: 'Session ended' });
+        } else {
+            res.send({msg:'Error'});
+        };
+        });
+        await conn.end();
+    } catch (error){
+        res.status(400).json({ 
+            success: false, 
+            message: error 
+        });
+    };
 });
