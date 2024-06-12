@@ -65,10 +65,10 @@ To run the Simpsons API Backend locally, follow these steps:
 - `POST /newCharacter`: Add a new character.
 - `PUT /characters/:id`: Update existing character information.
 - `DELETE /characters/:id`: Delete a character.
-- `POST /signup: Register a new user.
-- `POST /login:  Log in with user credentials to obtain a JWT token.
+- `POST /signup:` Register a new user.
+- `POST /login:`  Log in with user credentials to obtain a JWT token.
 - `GET /userProfile`: Retrieve user profile information.
-- `PUT /logout: Log out and invalidate the JWT token.
+- `PUT /logout:` Log out and invalidate the JWT token.
 
 
 ## Contributing
