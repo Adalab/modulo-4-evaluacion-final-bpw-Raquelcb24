@@ -1,4 +1,5 @@
 # Simpsons API Backend
+
 This project is a backend API for retrieving and managing data related to characters from the famous TV show "The Simpsons". It provides endpoints to perform CRUD operations on character data.
 
 ## Table of Contents
@@ -6,7 +7,6 @@ This project is a backend API for retrieving and managing data related to charac
 - [Introduction](#introduction)
 - [Features](#features)
 - [Installation](#installation)
-- [Usage](#usage)
 - [Endpoints](#endpoints)
 - [Contributing](#contributing)
 
@@ -25,10 +25,11 @@ The Simpsons API Backend is built using Node.js and Express.js, with MySQL as th
 ## Installation
 
 To run the Simpsons API Backend locally, follow these steps:
+
 1. Clone this repository to your local machine:
 
    ```bash
-  git clone https://github.com/Adalab/modulo-4-evaluacion-final-bpw-Raquelcb24.git
+   git clone https://github.com/Adalab/modulo-4-evaluacion-final-bpw-Raquelcb24.git
    ```
 
 2. Navigate to the project directory:
@@ -43,16 +44,14 @@ To run the Simpsons API Backend locally, follow these steps:
    npm install
    ```
 
-4. Start the server:
+4. Set up your MySQL database and update the file with your database credentials.
+
+5. Start the server:
 
    ```bash
    npm run dev
    ```
 
-
-## Usage
-
-Once the server is running, you can make HTTP requests to the available endpoints using tools like Postman. 
 
 ## Endpoints
 
@@ -62,6 +61,9 @@ Once the server is running, you can make HTTP requests to the available endpoint
 - `PUT /characters/:id`: Update existing character information.
 - `DELETE /characters/:id`: Delete a character.
 
+
 ## Contributing
 
 Contributions to the Simpsons API Backend are welcome! If you find any bugs or have suggestions for improvements, please open an issue or submit a pull request with your changes.
+
+
