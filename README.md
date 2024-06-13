@@ -22,6 +22,10 @@ The Simpsons API Backend is built using Node.js and Express.js, with MySQL as th
 - Add a new character
 - Update existing character information
 - Delete a character
+- User registration
+- User login
+- User profile
+- Logout
 
 ## Installation
 
@@ -61,6 +65,10 @@ To run the Simpsons API Backend locally, follow these steps:
 - `POST /newCharacter`: Add a new character.
 - `PUT /characters/:id`: Update existing character information.
 - `DELETE /characters/:id`: Delete a character.
+- `POST /signup:` Register a new user.
+- `POST /login:`  Log in with user credentials to obtain a JWT token.
+- `GET /userProfile`: Retrieve user profile information.
+- `PUT /logout:` Log out and invalidate the JWT token.
 
 
 ## Contributing
