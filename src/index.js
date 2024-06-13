@@ -185,21 +185,21 @@ function authorize(req, res, next) {
     if (!tokenString) {
         res.status(400).json({ 
             success: false, 
-            message: 'Unauthorized' 
+            message: 'Unauthorized: No token provided' 
         });
     } else {
         try {
             const token = tokenString.split(' ')[1]; //creo un array con los datos y cojo la posicion 1 que es el token
-            const verifiedToken = jwt.verify(token, 'password');
+            const verifiedToken = jwt.verify(token, 'passcode');
             req.userInfo = verifiedToken;
+            next();
         } catch (error) {
             res.status(400).json({ 
                 success: false, 
-                message: error 
+                message: 'Unauthorized: Invalid token', 
             });
         }
-        next();
-
+    
     }
 };
 
@@ -212,9 +212,9 @@ server.get('/userProfile', authorize, async (req, res) => {
             succes: true, 
             data: results 
         });
-   
+        conn.end();
+
     } catch (error) {
-        console.error('Error fetching user profile:', error);
         res.status(500).json({ 
             success: false, 
             message: 'Internal server error' 
